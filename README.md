@@ -1,46 +1,71 @@
-# Natural Language Processing with Disaster Tweets
+# Natural Language Processing with Disaster Tweets - Classification Using BERT
 
 ## Overview
-This project focuses on predicting whether tweets are about real disasters or not using natural language processing (NLP) techniques. The dataset includes tweets labeled as real disaster-related (1) or not (0).
 
-## About the Competition
-The objective is to create a model that accurately predicts whether a given tweet pertains to a real disaster.
+This project implements a disaster tweet classification system using **BERT (Bidirectional Encoder Representations from Transformers)**, a state-of-the-art natural language processing model. The goal is to determine whether a given tweet is about a disaster or not. This solution is built on the Kaggle competition dataset: *NLP with Disaster Tweets*.
 
-### **What files do I need?**
-You will require the following files:
-- `train.csv` - the training dataset
-- `test.csv` - the test dataset
-- `sample_submission.csv` - a sample submission file in the correct format
+---
 
-### **What should I expect the data format to be?**
-Each data sample consists of:
-1. **Text**: The tweet content.
-2. **Keyword**: A keyword extracted from the tweet (can be blank).
-3. **Location**: The geographical location from which the tweet was sent (can also be blank).
+## Features
 
-### **What am I predicting?**
-You need to predict the `target` column:
-- `1`: The tweet is about a real disaster.
-- `0`: The tweet is not about a real disaster.
+- **Text Preprocessing**: Comprehensive cleaning of tweets, including:
+  - Expanding contractions (e.g., `can't -> cannot`).
+  - Removing URLs, emojis, HTML tags, and punctuation.
+  - Standardizing abbreviations and converting words to a basic form (lemmatization).
+  
+- **Feature Engineering**:
+  - Tokenization and attention mask creation using BERT tokenizer.
+  - Conversion of tweets to numerical representations for input to BERT.
 
-## Files
-1. **`train.csv`**: The training dataset containing labeled data.
-2. **`test.csv`**: The test dataset where predictions will be made.
-3. **`sample_submission.csv`**: A sample submission file showing the correct format for your predictions.
+- **Model Training**:
+  - Fine-tuning of **BERT-large-uncased** with a classification head for binary classification.
+  - Utilization of **AdamW optimizer** with a linear learning rate scheduler for optimal convergence.
+  
+- **Evaluation**:
+  - Performance metrics: **Accuracy**, **F1 Score**, and **Loss** on the validation set.
+  - Epoch-wise training and testing statistics with graphical visualization.
 
-## Data Description
-### **Columns**
-- **`id`**: A unique identifier for each tweet.
-- **`text`**: The content of the tweet.
-- **`location`**: The location from which the tweet was sent (optional).
-- **`keyword`**: A specific keyword extracted from the tweet (optional).
-- **`target`**: Present in `train.csv` only, indicating whether the tweet is about a real disaster (`1`) or not (`0`).
+- **Prediction**:
+  - Classifies unseen tweets into disaster or non-disaster categories.
+  - Outputs a submission file in the required format for Kaggle.
 
-## Example Usage
-1. Train your NLP model using the data in `train.csv`.
-2. Use the trained model to predict the `target` column for the tweets in `test.csv`.
-3. Submit your predictions using the format provided in `sample_submission.csv`.
+---
 
-## Notes
-- Some `keyword` and `location` fields may be blank. Handle missing data appropriately during preprocessing.
-- Focus on text-based feature extraction to improve prediction accuracy.
+## Dataset
+
+The dataset consists of:
+1. `train.csv`: Training data with labeled tweets.
+2. `test.csv`: Unlabeled test data for predictions.
+3. `sample_submission.csv`: Template for submission.
+
+---
+## How to Use
+
+### Train the Model
+- Run the notebook to preprocess data, fine-tune BERT, and evaluate the model.
+
+### Generate Predictions
+- Once training is complete, the script predicts the labels for the test dataset and saves the results in `submission.csv`.
+
+### Submit to Kaggle
+- Upload `submission.csv` to Kaggle to evaluate the model's performance.
+
+---
+
+## Dependencies
+
+- **Python 3**
+
+- **Libraries**:
+  - `transformers`
+  - `torch`
+  - `tensorflow`
+  - `nltk`
+  - `pandas`
+  - `numpy`
+  - `matplotlib`
+  - `seaborn`
+
+---
+.
+
